@@ -16,6 +16,8 @@ public static class InfrastructureServiceCollection
         services.Configure<SenderOptions>(configuration.GetSection("EmailProviderOptions:SenderOptions"));
 
         services.AddSingleton<IEmailSender<WelcomeEmailDto>, WelcomeEmailSender>();
+        services.AddSingleton<IEmailSender<ActivateEmailDto>, ActivateEmailSender>();
+
         services.AddSingleton<SendGridClient>(sp =>
         {
             var apiKey = configuration["EmailProviderOptions:ApiKey:Value"];

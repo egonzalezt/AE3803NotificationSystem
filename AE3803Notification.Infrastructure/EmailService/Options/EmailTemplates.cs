@@ -3,4 +3,5 @@
 public class EmailTemplates
 {
     public string WelcomeEmailId { get; set; }
+    public string ActivateEmailId { get; set; }
 }

@@ -36,8 +36,11 @@ internal class UserConsumerWorker(
             var userDto = JsonSerializer.Deserialize<UserSignInUriDto>(message) ?? throw new InvalidBodyException();
             logger.LogInformation("Processing User Welcome request");
             var welcomeEmailDto = new WelcomeEmailDto { passwordUrl = userDto.PasswordSetUri };
-            var registerUserUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<WelcomeEmailDto>>();
-            await registerUserUseCase.SendAsync(welcomeEmailDto, userDto.Email);
+            var welcomeEmailUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<WelcomeEmailDto>>();
+            await welcomeEmailUseCase.SendAsync(welcomeEmailDto, userDto.Email);
+            var activateEmailDto = new ActivateEmailDto { activateEmailUrl = userDto.VerificationEmailUri };
+            var activateEmailUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<ActivateEmailDto>>();
+            await activateEmailUseCase.SendAsync(activateEmailDto, userDto.Email);
             channel.BasicAck(eventArgs.DeliveryTag, false);
         }
     }
