@@ -8,6 +8,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["AE3803Notification/AE3803Notification.csproj", "AE3803Notification/"]
+COPY ["AE3803Notification.Domain/AE3803Notification.Domain.csproj", "AE3803Notification.Domain/"]
+COPY ["AE3803Notification.Infrastructure/AE3803Notification.Infrastructure.csproj", "AE3803Notification.Infrastructure/"]
 RUN dotnet restore "./AE3803Notification/./AE3803Notification.csproj"
 COPY . .
 WORKDIR "/src/AE3803Notification"
