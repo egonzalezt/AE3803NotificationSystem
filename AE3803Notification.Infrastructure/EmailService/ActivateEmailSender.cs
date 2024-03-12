@@ -15,7 +15,7 @@ public class ActivateEmailSender(SendGridClient client, IOptions<EmailTemplates>
 
     public async Task SendAsync(ActivateEmailDto message, string recipient)
     {
-        logger.LogInformation("Sending Welcome Email");
+        logger.LogInformation("Sending Activate Email");
         var from = new EmailAddress(_senderOptions.SenderEmail, _senderOptions.SenderName);
         var to = new EmailAddress(recipient);
         var msg = MailHelper.CreateSingleTemplateEmail(from, to, _emailTemplates.ActivateEmailId, message);
