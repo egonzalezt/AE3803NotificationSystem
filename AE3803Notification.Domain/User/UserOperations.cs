@@ -2,5 +2,6 @@
 
 public enum UserOperations
 {
-    FirstSignIn
+    FirstSignIn,
+    ExistsOnOtherProvider
 }

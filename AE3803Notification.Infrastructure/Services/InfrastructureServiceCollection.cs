@@ -17,6 +17,7 @@ public static class InfrastructureServiceCollection
 
         services.AddSingleton<IEmailSender<WelcomeEmailDto>, WelcomeEmailSender>();
         services.AddSingleton<IEmailSender<ActivateEmailDto>, ActivateEmailSender>();
+        services.AddSingleton<IEmailSender<UserOnOtherProviderEmailDto>, UserOnOtherProviderSender>();
 
         services.AddSingleton<SendGridClient>(sp =>
         {
