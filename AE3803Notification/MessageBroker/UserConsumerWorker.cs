@@ -47,7 +47,7 @@ internal class UserConsumerWorker(
         {
             var userDto = JsonSerializer.Deserialize<UserOnOtherProvider>(message) ?? throw new InvalidBodyException();
             logger.LogInformation("Processing User on other provider");
-            var userOnOtherProviderDto = new UserOnOtherProviderEmailDto { Name = userDto.Email };
+            var userOnOtherProviderDto = new UserOnOtherProviderEmailDto { Name = userDto.Name };
             var userOnOtherProviderUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<UserOnOtherProviderEmailDto>>();
             await userOnOtherProviderUseCase.SendAsync(userOnOtherProviderDto, userDto.Email);
             channel.BasicAck(eventArgs.DeliveryTag, false);
