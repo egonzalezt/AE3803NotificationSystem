@@ -3,5 +3,6 @@
 public enum UserOperations
 {
     FirstSignIn,
-    ExistsOnOtherProvider
+    ExistsOnOtherProvider,
+    TransferUser
 }
