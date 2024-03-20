@@ -52,5 +52,13 @@ internal class UserConsumerWorker(
             await userOnOtherProviderUseCase.SendAsync(userOnOtherProviderDto, userDto.Email);
             channel.BasicAck(eventArgs.DeliveryTag, false);
         }
+        if (operation is UserOperations.TransferUser)
+        {
+            var userTransferDto = JsonSerializer.Deserialize<UserTransferCompleteDto>(message) ?? throw new InvalidBodyException();
+            logger.LogInformation("Processing User on other provider");
+            var userOnOtherProviderUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<UserTransferCompleteDto>>();
+            await userOnOtherProviderUseCase.SendAsync(userTransferDto, userTransferDto.Email);
+            channel.BasicAck(eventArgs.DeliveryTag, false);
+        }
     }
 }
